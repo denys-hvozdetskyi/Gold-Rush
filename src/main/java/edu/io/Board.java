@@ -9,3 +9,4 @@ public class Board {
         this.grid = new Token[size][size];
     }
 }
+
