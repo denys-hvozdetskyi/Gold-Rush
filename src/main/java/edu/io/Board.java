@@ -1,8 +1,8 @@
 package edu.io;
 
 public class Board {
-    private int size;
-    private Token[][] grid;
+    private final int size;
+    private final Token[][] grid;
 
     public Board(int size) {
         this.size = size;
