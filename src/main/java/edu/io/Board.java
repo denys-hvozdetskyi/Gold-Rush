@@ -1,11 +1,12 @@
 package edu.io;
 
 public class Board {
-    private final int size;
-    private final Token[][] grid;
+    public final int size;
+    public final Token[][] grid;
 
-    public Board(int size) {
-        this.size = size;
+    public Board() {
+        this.size = 8;
+        // this.size = size; upgrade for future
         this.grid = new Token[size][size];
         clean();
     }
