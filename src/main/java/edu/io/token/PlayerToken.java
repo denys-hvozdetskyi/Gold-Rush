@@ -15,7 +15,7 @@ public class PlayerToken extends Token {
         DOWN
     }
 
-    public record Coords(int col, int row) {}
+
 
     public PlayerToken(Board board, int col, int row) {
         super(Label.PLAYER_TOKEN_LABEL);
@@ -25,9 +25,14 @@ public class PlayerToken extends Token {
         board.placeToken(col, row, this);
     }
 
-    // 🧭 Метод, який повертає поточні координати гравця
-    public Coords pos() {
-        return new Coords(col, row);
+    public PlayerToken(Board board) {
+        this(board, 0, 0);
+    }
+
+
+    // Return current coordinates
+    public Board.Coords pos() {
+        return new Board.Coords(col, row);
     }
 
     public void move(Move dir) {
@@ -42,15 +47,15 @@ public class PlayerToken extends Token {
             default -> {}
         }
 
-        // перевірка меж
+        // Limit check
         if (newCol < 0 || newCol >= board.size || newRow < 0 || newRow >= board.size) {
             throw new IllegalArgumentException("Cannot move outside the board!");
         }
 
-        // очистити старе поле
+        // Clear previous field
         board.placeToken(col, row, new EmptyToken());
 
-        // оновити позицію
+        // Update position
         col = newCol;
         row = newRow;
         board.placeToken(col, row, this);
