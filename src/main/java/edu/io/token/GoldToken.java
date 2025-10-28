@@ -9,6 +9,9 @@ public class GoldToken extends Token {
 
     public GoldToken(double amount) {
         super(Label.GOLD_TOKEN_LABEL);
+        if (amount < 0) {
+            throw new IllegalArgumentException("Gold amount cannot be negative.");
+        }
         this.amount = amount;
     }
 

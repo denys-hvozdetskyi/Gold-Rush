@@ -59,8 +59,6 @@ public class Board {
 
     public Coords getAvailableSquare() {
         // Iterate through the grid sequentially (row by row)
-        // This is the initial algorithm [cite: 169]
-
         for (int r = nextRow; r < size; r++) {
             int startCol = (r == nextRow) ? nextCol : 0;
             for (int c = startCol; c < size; c++) {

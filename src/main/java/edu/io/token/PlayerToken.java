@@ -1,7 +1,7 @@
 package edu.io.token;
 
 import edu.io.Board;
-import edu.io.Player; // Використовуйте edu.io.player.Player, якщо він у цьому пакеті
+import edu.io.Player;
 
 public class PlayerToken extends Token {
     private int col;
@@ -17,23 +17,16 @@ public class PlayerToken extends Token {
         DOWN
     }
 
-    // 1. Головний конструктор: приймає всі параметри і виконує всю ініціалізацію
-    public PlayerToken(Board board, Player player, int col, int row) {
-        // 1. super() - ПЕРШИЙ ВИКЛИК!
+    public PlayerToken(Player player, Board board) {
         super(Label.PLAYER_TOKEN_LABEL);
-
-        // 2. Ініціалізація полів
         this.board = board;
         this.player = player;
-        this.col = col;
-        this.row = row;
 
-        // 3. Додаткова логіка
-        board.placeToken(col, row, this);
-    }
+        Board.Coords start = board.getAvailableSquare();
+        this.col = start.col();
+        this.row = start.row();
 
-    public PlayerToken(Board board, Player player) {
-        this(board, player, board.getAvailableSquare().col(), board.getAvailableSquare().row());
+        board.placeToken(this.col, this.row, this);
     }
 
     // Return current coordinates
@@ -60,14 +53,14 @@ public class PlayerToken extends Token {
             throw new IllegalArgumentException("Cannot move outside the board!");
         }
 
-        // 2. ОБОВ'ЯЗКОВО: Перевіряємо, що знаходиться на цільовій клітинці
+        // If on target place
         Token targetToken = board.peekToken(newCol, newRow);
 
-        // 3. ОБОВ'ЯЗКОВО: Взаємодія з фішкою, що знаходиться на цільовій клітинці.
+        // interaction
         player.interactWithToken(targetToken);
 
         // Clear previous field
-        board.placeToken(oldCol, oldRow, new EmptyToken()); // Потрібен import EmptyToken
+        board.placeToken(oldCol, oldRow, new EmptyToken());
 
         // Update position
         col = newCol;

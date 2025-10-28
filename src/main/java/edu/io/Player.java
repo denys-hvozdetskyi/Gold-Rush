@@ -1,8 +1,8 @@
 package edu.io;
 
+import edu.io.token.Token;
 import edu.io.token.GoldToken;
 import edu.io.token.PlayerToken;
-import edu.io.token.Token;
 
 public class Player {
     private PlayerToken token;
@@ -21,20 +21,25 @@ public class Player {
     }
 
     public void gainGold(double amount) {
+        if (amount < 0) {
+            throw new IllegalArgumentException("Cannot gain a negative amount of gold.");
+        }
         this.gold += amount;
-        System.out.println("Gained " + amount + " oz of gold. Total: " + this.gold);
     }
 
     public void loseGold(double amount) {
+        if (amount < 0) {
+            throw new IllegalArgumentException("Cannot lose a negative amount of gold.");
+        }
+        if (this.gold < amount) {
+            throw new IllegalArgumentException("Cannot lose " + amount + " oz of gold. Player only has " + this.gold + " oz.");
+        }
         this.gold -= amount;
-        if (this.gold < 0) this.gold = 0;
-        System.out.println("Lost " + amount + " oz of gold. Total: " + this.gold);
     }
 
     public void interactWithToken(Token token) {
-        if (token instanceof GoldToken gold) {
-            System.out.println("GOLD! Interaction!");
-            this.gainGold(gold.amount());
+        if (token instanceof GoldToken goldToken) {
+            this.gainGold(goldToken.amount());
         }
     }
 }
