@@ -1,12 +1,9 @@
-package edu.io.token;
+package edu.io.player;
 
 import edu.io.Tool;
+import edu.io.token.Token;
 
-public class EmptyToken extends Token implements Tool {
-    public EmptyToken() {
-        super(Label.EMPTY_TOKEN_LABEL);
-    }
-
+public class NoTool implements Tool {
     @Override
     public Tool useWith(Token token) {
         return this;
@@ -21,7 +18,6 @@ public class EmptyToken extends Token implements Tool {
     }
     @Override
     public Tool ifIdle(Runnable action) {
-        action.run();
         return this;
     }
     @Override

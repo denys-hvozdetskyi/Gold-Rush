@@ -1,6 +1,8 @@
 package edu.io;
 
+import edu.io.player.Player;
 import edu.io.token.GoldToken;
+import edu.io.token.PickaxeToken;
 import edu.io.token.PlayerToken;
 import edu.io.token.PyriteToken;
 
@@ -39,18 +41,20 @@ public class Game {
         // gold
         this.board.placeToken(1, 1, new GoldToken(1.5));
 
+        this.board.placeToken(1, 2, new PickaxeToken());
+
         PlayerToken playerToken = player.token();
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
             board.display();
 
-            System.out.printf("Current Gold: %.2f oz | ", player.gold());
+            System.out.printf("Current Gold: %.2f oz | ", player.gold.amount());
             System.out.println("Move (w/a/s/d): (or 'q' to quit)");
             String input = scanner.nextLine();
 
             if (input.equalsIgnoreCase("q")) {
-                System.out.println("--- Game Ended! Final Gold: " + player.gold() + " oz ---");
+                System.out.println("--- Game Ended! Final Gold: " + player.gold.amount() + " oz ---");
                 break;
             }
 
