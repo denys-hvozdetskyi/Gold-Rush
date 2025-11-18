@@ -48,7 +48,7 @@ public class Game {
         // pickaxe
         this.board.placeToken(1, 2, new PickaxeToken());
 
-        // water token: dodajemy żeton wody na planszę
+        // water token
         this.board.placeToken(5, 5, new WaterToken(20)); // Przykład: żeton uzupełnia 20% nawodnienia
 
         PlayerToken playerToken = player.token();

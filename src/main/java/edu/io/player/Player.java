@@ -48,9 +48,7 @@ public class Player {
         }
 
         switch(token) {
-            case EmptyToken emptyToken -> {
-                vitals.dehydrate(VitalsValues.DEHYDRATION_MOVE);
-            }
+            case EmptyToken emptyToken -> vitals.dehydrate(VitalsValues.DEHYDRATION_MOVE);
             case PyriteToken pyriteToken -> {
                 vitals.dehydrate(VitalsValues.DEHYDRATION_GOLD);
                 usePickaxeOnGold(pyriteToken);
@@ -72,9 +70,7 @@ public class Player {
                     repairableTool.repair();
                 }
             }
-            case WaterToken waterToken -> {
-                vitals.hydrate(waterToken.amount());
-            }
+            case WaterToken waterToken -> vitals.hydrate(waterToken.amount());
             default -> {}
         }
     }
