@@ -5,7 +5,7 @@ import edu.io.token.GoldToken;
 import edu.io.token.PickaxeToken;
 import edu.io.token.PlayerToken;
 import edu.io.token.PyriteToken;
-
+import edu.io.token.WaterToken;
 import java.util.Scanner;
 
 public class Game {
@@ -22,6 +22,10 @@ public class Game {
 
     public void join(Player player) {
         this.player = player;
+
+        player.vitals.setOnDeathHandler(() -> {
+            System.out.println("To koniec: pełne odwodnienie. Gracz jest niedysponowany i nie może wykonać ruchu!");
+        });
 
         PlayerToken token = new PlayerToken(this.player, this.board);
 
@@ -41,7 +45,11 @@ public class Game {
         // gold
         this.board.placeToken(1, 1, new GoldToken(1.5));
 
+        // pickaxe
         this.board.placeToken(1, 2, new PickaxeToken());
+
+        // water token: dodajemy żeton wody na planszę
+        this.board.placeToken(5, 5, new WaterToken(20)); // Przykład: żeton uzupełnia 20% nawodnienia
 
         PlayerToken playerToken = player.token();
         Scanner scanner = new Scanner(System.in);
@@ -49,7 +57,10 @@ public class Game {
         while (true) {
             board.display();
 
-            System.out.printf("Current Gold: %.2f oz | ", player.gold.amount());
+            // Wyświetlanie aktualnego stanu nawodnienia
+            System.out.printf("Current Gold: %.2f oz | Hydration: %d/100 | ",
+                    player.gold.amount(),
+                    player.vitals.hydration());
             System.out.println("Move (w/a/s/d): (or 'q' to quit)");
             String input = scanner.nextLine();
 
@@ -67,6 +78,8 @@ public class Game {
                 }
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
+            } catch (IllegalStateException e) {
+                System.err.println("Chwilowo nie żyjesz: " + e.getMessage() + ". Nie możesz wykonać ruchu!");
             }
         }
     }

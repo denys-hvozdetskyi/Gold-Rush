@@ -10,8 +10,12 @@ public class Player {
     private final Shed shed = new Shed();
 
     public final Gold gold = new Gold();
+    public final Vitals vitals = new Vitals();
 
     public void assignToken(PlayerToken playerToken) {
+        if (playerToken == null) {
+            throw new NullPointerException("Token cannot be null");
+        }
         this.token = playerToken;
     }
 
@@ -36,8 +40,25 @@ public class Player {
     }
 
     public void interactWithToken(Token token) {
+        if (token == null) {
+            throw new NullPointerException("Token cannot be null");
+        }
+        if (!vitals.isAlive()) {
+            throw new IllegalStateException("player is dead");
+        }
+
         switch(token) {
-            case GoldToken goldToken -> usePickaxeOnGold(goldToken);
+            case EmptyToken emptyToken -> {
+                vitals.dehydrate(VitalsValues.DEHYDRATION_MOVE);
+            }
+            case PyriteToken pyriteToken -> {
+                vitals.dehydrate(VitalsValues.DEHYDRATION_GOLD);
+                usePickaxeOnGold(pyriteToken);
+            }
+            case GoldToken goldToken -> {
+                vitals.dehydrate(VitalsValues.DEHYDRATION_GOLD);
+                usePickaxeOnGold(goldToken);
+            }
             case PickaxeToken newPickaxeToken -> {
                 if (!(this.pickaxeToken instanceof EmptyToken)) {
                     shed.add(this.pickaxeToken);
@@ -47,8 +68,12 @@ public class Player {
             }
             case AnvilToken anvilToken -> {
                 if (this.pickaxeToken instanceof Repairable repairableTool) {
+                    vitals.dehydrate(VitalsValues.DEHYDRATION_ANVIL);
                     repairableTool.repair();
                 }
+            }
+            case WaterToken waterToken -> {
+                vitals.hydrate(waterToken.amount());
             }
             default -> {}
         }

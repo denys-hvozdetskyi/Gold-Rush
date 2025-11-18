@@ -19,6 +19,9 @@ public class PlayerToken extends Token {
 
     public PlayerToken(Player player, Board board) {
         super(Label.PLAYER_TOKEN_LABEL);
+        if (player == null || board == null) {
+            throw new NullPointerException("Player and Board cannot be null");
+        }
         this.board = board;
         this.player = player;
 
@@ -35,6 +38,9 @@ public class PlayerToken extends Token {
     }
 
     public void move(Move dir) {
+        if (dir == null) {
+            throw new NullPointerException("Move direction cannot be null");
+        }
         int newCol = col;
         int newRow = row;
         int oldCol = col;
@@ -49,7 +55,7 @@ public class PlayerToken extends Token {
         }
 
         // Limit check
-        if (newCol < 0 || newCol >= board.size || newRow < 0 || newRow >= board.size) {
+        if (newCol < 0 || newCol >= board.size || newRow < 0 || newRow >= board.size()) {
             throw new IllegalArgumentException("Cannot move outside the board!");
         }
 
