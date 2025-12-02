@@ -7,7 +7,6 @@ public class Main {
     public static void main(String[] args) throws InterruptedException {
         Scanner scanner = new Scanner(System.in);
 
-        // Connect to server
         var connector = new GameServerConnector("tcp://localhost:1313", new SocketConnector());
         connector.connect();
 
