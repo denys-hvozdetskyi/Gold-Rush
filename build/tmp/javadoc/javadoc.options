@@ -1,7 +1,0 @@
--classpath '/Users/hvozdetskyi/Documents/workonmac/java_proj/gold_rush_client/build/classes/java/main:/Users/hvozdetskyi/Documents/workonmac/java_proj/gold_rush_client/build/resources/main:/Users/hvozdetskyi/Documents/workonmac/java_proj/gold_rush_client/libs/game_common-1.0.13.jar:/Users/hvozdetskyi/Documents/workonmac/java_proj/gold_rush_client/libs/game_connector_lib-1.0.13-javadoc.jar:/Users/hvozdetskyi/Documents/workonmac/java_proj/gold_rush_client/libs/game_connector_lib-1.0.13-sources.jar:/Users/hvozdetskyi/Documents/workonmac/java_proj/gold_rush_client/libs/game_connector_lib-1.0.13.jar'
--d '/Users/hvozdetskyi/Documents/workonmac/java_proj/gold_rush_client/build/docs/javadoc'
--doctitle 'gold_rush_client 1.0-SNAPSHOT API'
--notimestamp 
--quiet 
--windowtitle 'gold_rush_client 1.0-SNAPSHOT API'
-'/Users/hvozdetskyi/Documents/workonmac/java_proj/gold_rush_client/src/main/java/edu/io/net/Main.java'
