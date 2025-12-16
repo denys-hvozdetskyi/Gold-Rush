@@ -21,3 +21,21 @@ dependencies {
 tasks.test {
     useJUnitPlatform()
 }
+
+val mainClassName = "edu.io.net.client.GameClient"
+
+tasks.jar {
+    archiveFileName.set("game_client.jar")
+
+    manifest {
+        attributes["Main-Class"] = mainClassName
+    }
+
+    from(
+        configurations.runtimeClasspath.get().map {
+            if (it.isDirectory) it else zipTree(it)
+        }
+    )
+
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}

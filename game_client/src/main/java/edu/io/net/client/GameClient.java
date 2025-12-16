@@ -12,7 +12,7 @@ public class GameClient {
     }
 
     private final Game game = new Game();
-    //
+
     private void start() {
         var gsc = new GameServerConnector(
                 "tcp://localhost:1313",
@@ -37,9 +37,10 @@ public class GameClient {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter your name: ");
         String name = scanner.next();
+
         gsc.issueCommand(new JoinGame.Cmd(name), cmdRe -> {
             if (cmdRe.status() != JoinGame.CmdRe.Status.OK) {
-                System.err.printf("Error: %s",cmdRe.status());
+                System.err.printf("Error joining game: %s",cmdRe.status());
                 exit(0);
             }
         });
